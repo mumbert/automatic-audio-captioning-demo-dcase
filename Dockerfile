@@ -59,6 +59,12 @@ RUN mkdir -p /var/cache/matplotlib && chmod -R 777 /var/cache/matplotlib && \
     mkdir /nltk_data && chmod -R 777 /nltk_data && \
     mkdir -p /tmp/NUMBA_CACHE_DIR && chmod -R 777 /tmp/NUMBA_CACHE_DIR
 
+RUN pip cache purge && \
+    apt-get clean autoclean && \
+    apt-get autoremove --yes && \
+    rm -rf /var/lib/{apt,dpkg,cache,log}/
+#    rm -rf /var/lib/apt/lists/*
+
 RUN python -c 'import torch; from dcase24t6.nn.hub import baseline_pipeline; model = baseline_pipeline()'
 
 ENV GRADIO_SERVER_PORT=7860
