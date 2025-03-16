@@ -35,8 +35,8 @@ def dcase_inference(mic=None, file=None):
         sr = 48000
         print(f"sr 1: {sr}")
     elif file is not None:
-        audio, sr = librosa.load(file, sr=None)
         print(f"file 1: {file}")
+        audio, sr = librosa.load(file, sr=None)
         print(f"file 1: {sr}")
     else:
         return "You must either provide a mic recording or a file"
