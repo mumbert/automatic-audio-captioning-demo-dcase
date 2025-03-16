@@ -71,4 +71,10 @@ ENV GRADIO_SERVER_PORT=7860
 ENV GRADIO_SERVER_NAME="0.0.0.0"
 EXPOSE 7860
 
+# Set up a new user named "user" with user ID 1000
+RUN useradd -m -u 1000 user
+
+# Switch to the "user" user
+USER user
+
 CMD ["python", "app.py"]
