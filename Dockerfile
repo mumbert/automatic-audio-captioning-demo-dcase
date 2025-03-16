@@ -50,6 +50,13 @@ RUN pip install gradio==5.21.0 && \
 WORKDIR /code/dcase2024-task6-baseline-project
 COPY . .
 
+ENV MPLCONFIGDIR=/var/cache/matplotlib
+ENV TRANSFORMERS_CACHE=/var/cache/huggingface/hub
+RUN mkdir -p /var/cache/matplotlib && chmod -R 777 /var/cache/matplotlib && \
+    mkdir -p /var/cache/huggingface/hub && chmod -R 777 /var/cache/huggingface/ && chmod -R 777 /var/cache/huggingface/hub && \
+    mkdir /.config && chmod -R 777 /.config && \
+    mkdir /nltk_data && chmod -R 777 /nltk_data 
+
 RUN python -c 'import torch; from dcase24t6.nn.hub import baseline_pipeline; model = baseline_pipeline()'
 
 ENV GRADIO_SERVER_PORT=7860
