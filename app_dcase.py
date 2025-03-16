@@ -25,6 +25,7 @@
 import gradio as gr
 from dcase24t6.nn.hub import baseline_pipeline
 import librosa
+import torch 
 
 model = baseline_pipeline()
 
@@ -33,11 +34,12 @@ def dcase_inference(mic=None, file=None):
     if mic is not None:
         audio = mic
         sr = 48000
-        print(f"sr 1: {sr}")
+        gr.info(f"sr 1: {sr}")
     elif file is not None:
-        print(f"file 1: {file}")
+        gr.info(f"file 1: {file}")
         audio, sr = librosa.load(file, sr=None)
-        print(f"file 1: {sr}")
+        audio = torch.from_numpy(audio)
+        gr.info(f"file 1: {sr}")
     else:
         return "You must either provide a mic recording or a file"
 
